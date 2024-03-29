@@ -1,0 +1,65 @@
+
+buildscript {
+//   apply from: "https://github.com/rosjava/rosjava_bootstrap/raw/kinetic/buildscript.gradle"
+    String rosMavenPath = System.getenv("ROS_MAVEN_PATH")
+    String rosMavenRepository = System.getenv("ROS_MAVEN_REPOSITORY")
+    repositories {
+        if (rosMavenPath != null) {
+            rosMavenPath.tokenize(":").each { path ->
+                maven {
+                    // We can't use uri() here because we aren't running inside something
+                    // that implements the Script interface.
+                    url "file:${path}"
+                }
+            }
+        }
+        maven {
+            url "http://repository.springsource.com/maven/bundles/release"
+            allowInsecureProtocol = true
+        }
+        maven {
+            url "http://repository.springsource.com/maven/bundles/external"
+            allowInsecureProtocol = true
+        }
+        if (rosMavenRepository != null) {
+            maven {
+                url rosMavenRepository
+            }
+        }
+        maven {
+            url "https://github.com/rosjava/rosjava_mvn_repo/raw/master"
+        }
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.ros.rosjava_bootstrap:gradle_plugins:[0.3,0.4)"
+        classpath 'com.android.tools.build:gradle:4.2.0'
+    }
+}
+
+subprojects {
+    apply plugin: 'ros-android'
+
+    afterEvaluate { project ->
+        android {
+            // Exclude a few files that are duplicated across our dependencies and
+            // prevent packaging Android applications.
+            packagingOptions {
+                exclude "META-INF/LICENSE.txt"
+                exclude "META-INF/NOTICE.txt"
+            }
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        maven { url 'https://repo1.maven.org/maven2' }
+    }
+}
+
+//task clean(type: Delete) {
+//    delete rootProject.buildDirZ
+//}

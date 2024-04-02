@@ -1,7 +1,33 @@
+//package com.example.rostest;
+//
+//import android.os.Bundle;
+//
+//import androidx.activity.EdgeToEdge;
+//import androidx.appcompat.app.AppCompatActivity;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowInsetsCompat;
+//
+//public class MainActivity extends AppCompatActivity {
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        EdgeToEdge.enable(this);
+//        setContentView(R.layout.activity_main);
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+//    }
+//}
 package com.example.rostest;
 
 import androidx.appcompat.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 
 import org.ros.android.RosActivity;
 import org.ros.concurrent.CancellableLoop;
@@ -14,7 +40,7 @@ import org.ros.node.NodeMainExecutor;
 import org.ros.node.topic.Publisher;
 
 import java.net.URI;
-import android.R.layout;
+//import android.R.layout;
 
 import std_msgs.String;
 
